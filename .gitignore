@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+data/
+!data/.gitkeep
+*.npz
+*.npy
+*.pt
+*.pth
+runs/
+.DS_Store
+Thumbs.db
+.vscode/
