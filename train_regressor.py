@@ -1,19 +1,34 @@
+import os
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
-from .head import make_regressor
+from head import make_regressor
 
 
-def load_npz_dataset(npz_file_path):
-    """Load embeddings and labels from a saved .npz file."""
-    data = np.load(npz_file_path)
-    full_image_embeddings = data["full"].astype(np.float32)
-    crop_image_embeddings = data["crop"].astype(np.float32)
-    bounding_box_features = data["bbox"].astype(np.float32)
-    distance_labels = data["y"].astype(np.float32).reshape(-1, 1)
+def load_npz_dataset(npz_file_path, y_min=0.5, y_max=300.0):
+    """Load embeddings/labels, filter invalid targets, and return combined_features, distance_labels."""
+    data = np.load(npz_file_path, allow_pickle=False)
 
-    # Combine all features together
+    full_image_embeddings   = data["full"].astype(np.float32)
+    crop_image_embeddings   = data["crop"].astype(np.float32)
+    bounding_box_features   = data["bbox"].astype(np.float32)
+    distance_labels         = data["y"].astype(np.float32).reshape(-1, 1)
+
+    # mask: finite & within plausible range
+    mask = np.isfinite(distance_labels) & (distance_labels >= y_min) & (distance_labels <= y_max)
+    n_bad = int((~mask).sum())
+    if n_bad:
+        print(f"🧹 Filtering {n_bad} rows in {os.path.basename(npz_file_path)} "
+              f"(kept {int(mask.sum())} / {len(distance_labels)})")
+
+    # apply mask
+    full_image_embeddings = full_image_embeddings[mask.ravel()]
+    crop_image_embeddings = crop_image_embeddings[mask.ravel()]
+    bounding_box_features = bounding_box_features[mask.ravel()]
+    distance_labels       = distance_labels[mask]
+
+    # Combine all features together (unchanged naming)
     combined_features = np.hstack([
         full_image_embeddings,
         crop_image_embeddings,
@@ -21,6 +36,7 @@ def load_npz_dataset(npz_file_path):
     ]).astype(np.float32)
 
     return combined_features, distance_labels
+
 
 
 def evaluate_model(model, data_loader, device):
@@ -44,6 +60,15 @@ def evaluate_model(model, data_loader, device):
 
     return root_mean_squared_error, mean_absolute_error
 
+def drop_nan_pairs(X, y, name):
+    # y comes in as (N,1). Flatten mask ONLY, then reshape y back to (K,1).
+    mask = ~np.isnan(y).ravel()
+    dropped = int((~mask).sum())
+    if dropped > 0:
+        print(f"🧹 Dropping {dropped} NaN labels from {name} set")
+    return X[mask], y[mask].reshape(-1, 1)
+
+
 
 def train_distance_regressor(
     train_npz_path,
@@ -64,6 +89,29 @@ def train_distance_regressor(
     X_train, y_train = load_npz_dataset(train_npz_path)
     X_val, y_val = load_npz_dataset(val_npz_path)
     X_test, y_test = load_npz_dataset(test_npz_path)
+    
+    X_train, y_train = drop_nan_pairs(X_train, y_train, "train")
+    X_val, y_val = drop_nan_pairs(X_val, y_val, "val")
+    X_test, y_test = drop_nan_pairs(X_test, y_test, "test")
+    
+    # right after you load/clean X_train, y_train, X_val, y_val
+    y_train_mean = float(y_train.mean())
+    mae_baseline = float(np.abs(y_val - y_train_mean).mean())
+    rmse_baseline = float(np.sqrt(((y_val - y_train_mean)**2).mean()))
+    print(f"baseline (val) MAE={mae_baseline:.2f} | RMSE={rmse_baseline:.2f}")
+
+    
+    print("shapes:",
+      X_train.shape, y_train.shape,
+      X_val.shape,   y_val.shape,
+      X_test.shape,  y_test.shape)
+    
+    # after X_train, y_train = load_npz_dataset(...), etc.
+    for name, y in [("train", y_train), ("val", y_val), ("test", y_test)]:
+        assert np.isfinite(y).all(), f"{name}: found non-finite y"
+        ymax = float(y.max()); ymin = float(y.min())
+        assert 0.5 <= ymin and ymax <= 300, f"{name}: y out of range [{ymin}, {ymax}]"
+
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
