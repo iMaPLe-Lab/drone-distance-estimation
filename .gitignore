@@ -19,4 +19,5 @@ Thumbs.db
 **/LRDDv3_embeds/
 **/__pycache__/
 **/checkpoints/
-**/notebook
+notebook/*
+!notebook/notebook.ipynb
