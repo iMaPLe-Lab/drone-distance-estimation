@@ -2,7 +2,9 @@
 
 ## What is this?
 
-This repo trains a baseline distance estimator for drones.
+This repo helps train distance estimators for drones. 
+
+We are primarily training Resnet 18, 50 and 101 with LRDD V3 Dataset.
 
 The model uses:
 - the full RGB frame
