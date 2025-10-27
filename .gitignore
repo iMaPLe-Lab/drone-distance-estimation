@@ -15,5 +15,8 @@ runs/
 Thumbs.db
 .vscode/
 **/LRDDv3/
-**/LRDD-V3\ embeddings/
+**/LRDD-V3-rest/
+**/LRDDv3_embeds/
 **/__pycache__/
+**/checkpoints/
+**/notebook
