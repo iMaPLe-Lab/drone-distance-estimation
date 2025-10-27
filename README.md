@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This repo helps train distance estimators for drones. 
+This repo helps train distance estimators for drones.
 
 We are primarily training Resnet 18, 50 and 101 with LRDD V3 Dataset.
 
@@ -34,7 +34,7 @@ This is our baseline. Future backbones / heads must beat it.
 ---
 
 ## Repo layout (important parts)
-
+```text
 src/
   config.py           # paths + hyperparams
   dataset.py          # LRDDDataset for one flight
@@ -47,6 +47,7 @@ src/
 scripts/
   run_extract.py      # STEP 1: extract features for all flights
   run_train_eval.py   # STEP 2: train + eval on those features
+```
 
 ## How to run
 
@@ -61,11 +62,14 @@ scripts/
 2. Install requirements:
    ```bash
    pip install -r requirements.txt
+   ```
 
 3. Extract features from all flights (writes .npz files to EMBED_DIR):
    ```bash
    python scripts/run_extract.py
+   ```
 
 4. Train and evaluate the baseline model:
    ```bash
    python scripts/run_train_eval.py
+   ```
