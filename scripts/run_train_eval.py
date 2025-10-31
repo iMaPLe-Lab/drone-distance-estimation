@@ -1,14 +1,14 @@
 import sys, os
 
 # absolute path to the project root (the folder that contains /src and /scripts)
-PROJECT_ROOT = r"C:\Project\Distance Estimation"
+PROJECT_ROOT = "/home/kp3275@drexel.edu/DroneRange/drone-distance-estimation" #r"C:\Project\Distance Estimation"
 
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from src.config import (
     EMBED_DIR, BIN_STEP, TEST_SIZE,
-    BATCH_TRAIN, BATCH_TEST,
+    BATCH_TRAIN, BATCH_VAL, BATCH_TEST,
     LR, WEIGHT_DECAY, EPOCHS, PATIENCE,
     DEVICE, CHECKPOINT_DIR
 )
@@ -26,14 +26,13 @@ from src.train_eval import (
 
 def main():
     # 1. load flight .npz files
-    flights = load_all_flights(EMBED_DIR)
+    train_flights, val_flights, test_flights = load_all_flights(EMBED_DIR)
     print("\n" + "="*80)
     print("[stage] finished loading per-flight .npz files")
     print("="*80 + "\n")
 
-
     # 2. compute bins
-    bin_edges = compute_global_bin_edges(flights, BIN_STEP)
+    bin_edges = compute_global_bin_edges(train_flights, val_flights, test_flights, BIN_STEP)
     num_bins = len(bin_edges) - 1
     
     print("\n" + "-"*80)
@@ -45,23 +44,28 @@ def main():
     (X_train_all,
      y_train_cont_all,
      y_train_cls_all,
+     X_val_all,
+     y_val_cont_all,
+     y_val_cls_all,
      X_test_all,
      y_test_cont_all,
-     y_test_cls_all) = build_global_pools(flights, bin_edges, TEST_SIZE)
+     y_test_cls_all) = build_global_pools(train_flights, val_flights, test_flights, bin_edges)
 
     input_dim = X_train_all.shape[1]
     print("\n" + "="*80)
     print("[stage] finished per-flight splits + merged global pools")
     print(f"  input_dim: {input_dim}")
     print(f"  train total: {len(y_train_cont_all)}")
+    print(f"  val total: {len(y_val_cont_all)}")
     print(f"  test  total: {len(y_test_cont_all)}")
     print("="*80 + "\n")
 
     # 4. loaders
-    train_loader, test_loader = make_loaders(
+    train_loader, val_loader, test_loader = make_loaders(
         X_train_all, y_train_cls_all,
+        X_val_all, y_val_cls_all,
         X_test_all,  y_test_cls_all,
-        BATCH_TRAIN, BATCH_TEST,
+        BATCH_TRAIN, BATCH_VAL, BATCH_TEST,
         DEVICE
     )
 
@@ -77,6 +81,7 @@ def main():
     train_classifier(
         model,
         train_loader,
+        val_loader,
         test_loader,
         DEVICE,
         LR,

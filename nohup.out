@@ -1,0 +1,227 @@
+[I 2025-10-27 12:46:18.169 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2025-10-27 12:46:18.172 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2025-10-27 12:46:18.176 ServerApp] jupyterlab | extension was successfully linked.
+[I 2025-10-27 12:46:18.179 ServerApp] notebook | extension was successfully linked.
+[I 2025-10-27 12:46:18.314 ServerApp] notebook_shim | extension was successfully linked.
+[I 2025-10-27 12:46:18.324 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2025-10-27 12:46:18.325 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2025-10-27 12:46:18.326 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2025-10-27 12:46:18.328 LabApp] JupyterLab extension loaded from /home/kp3275@drexel.edu/anaconda3/envs/DroneRange/lib/python3.13/site-packages/jupyterlab
+[I 2025-10-27 12:46:18.329 LabApp] JupyterLab application directory is /home/kp3275@drexel.edu/anaconda3/envs/DroneRange/share/jupyter/lab
+[I 2025-10-27 12:46:18.329 LabApp] Extension Manager is 'pypi'.
+[I 2025-10-27 12:46:18.361 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2025-10-27 12:46:18.364 ServerApp] notebook | extension was successfully loaded.
+[I 2025-10-27 12:46:18.364 ServerApp] Serving notebooks from local directory: /home/kp3275@drexel.edu/DroneRange/drone-distance-estimation
+[I 2025-10-27 12:46:18.364 ServerApp] Jupyter Server 2.16.0 is running at:
+[I 2025-10-27 12:46:18.364 ServerApp] http://localhost:8080/tree?token=f6247e5fa76f7d478bb0d0cbbf3c434a7ce11e1e8bb7c5c6
+[I 2025-10-27 12:46:18.364 ServerApp]     http://127.0.0.1:8080/tree?token=f6247e5fa76f7d478bb0d0cbbf3c434a7ce11e1e8bb7c5c6
+[I 2025-10-27 12:46:18.364 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2025-10-27 12:46:18.366 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///home/kp3275%40drexel.edu/.local/share/jupyter/runtime/jpserver-1680486-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8080/tree?token=f6247e5fa76f7d478bb0d0cbbf3c434a7ce11e1e8bb7c5c6
+        http://127.0.0.1:8080/tree?token=f6247e5fa76f7d478bb0d0cbbf3c434a7ce11e1e8bb7c5c6
+[I 2025-10-27 12:46:18.377 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[I 2025-10-27 12:47:03.073 ServerApp] 302 GET /?token=[secret] (@127.0.0.1) 0.31ms
+[W 2025-10-27 12:47:09.330 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 18.67ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 12:47:11.085 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 12:47:24.721 ServerApp] Notebook notebook/notebook.ipynb is not trusted
+[W 2025-10-27 12:47:24.726 ServerApp] Notebook notebook/notebook.ipynb is not trusted
+[W 2025-10-27 12:47:26.559 ServerApp] Notebook notebook/notebook.ipynb is not trusted
+[I 2025-10-27 12:47:27.488 ServerApp] Kernel started: 97a266f3-4a13-4efe-8141-ade655025874
+[I 2025-10-27 12:47:27.832 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[W 2025-10-27 12:47:27.832 ServerApp] The websocket_ping_timeout (90000) cannot be longer than the websocket_ping_interval (30000).
+    Setting websocket_ping_timeout=30000
+[I 2025-10-27 12:47:27.865 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-27 12:47:27.900 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[W 2025-10-27 12:47:29.742 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 12:47:37.307 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-27 12:48:01.859 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[W 2025-10-27 12:48:03.797 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 12:49:27.778 ServerApp] Saving file at /notebook/notebook.ipynb
+[W 2025-10-27 12:49:27.778 ServerApp] Notebook notebook/notebook.ipynb is not trusted
+[I 2025-10-27 12:50:02.216 ServerApp] Saving file at /src/config.py
+[W 2025-10-27 12:51:38.747 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.12ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 12:52:02.271 ServerApp] Saving file at /src/config.py
+[I 2025-10-27 12:52:30.031 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:a503fa0f-c5e2-4351-8aea-3f65d02a0286
+[I 2025-10-27 12:52:43.200 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-27 12:52:43.564 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:f14cfddb-463e-4c7a-9bb4-02158b9299bf
+[W 2025-10-27 12:52:45.143 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.77ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 12:53:58.065 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-27 12:53:58.547 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:2a5225ef-ec95-4464-8b7e-fdc596a7eec9
+[W 2025-10-27 12:54:00.253 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 12:54:02.674 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-27 12:54:03.079 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:accdc0ce-9043-4393-97c3-89c44d6e02ad
+[W 2025-10-27 12:54:04.653 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 12:54:43.738 ServerApp] Saving file at /scripts/run_extract.py
+[I 2025-10-27 12:55:02.349 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-27 12:55:02.794 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:504c4ffc-802e-4965-af1b-c430c89179d1
+[W 2025-10-27 12:55:04.495 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.09ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 12:56:46.787 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.19ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:02:16.844 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.15ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 13:02:47.726 ServerApp] Saving file at /scripts/run_extract.py
+[I 2025-10-27 13:03:12.016 ServerApp] Saving file at /scripts/run_extract.py
+[I 2025-10-27 13:07:03.884 ServerApp] Saving file at /src/config.py
+[W 2025-10-27 13:07:46.933 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.01ms referer=http://localhost:8080/sw.js
+[I 2025-10-27 13:07:57.993 ServerApp] Saving file at /src/config.py
+[I 2025-10-27 13:09:07.714 ServerApp] Saving file at /src/index_dataset.py
+[I 2025-10-27 13:09:13.724 ServerApp] Saving file at /scripts/run_extract.py
+[I 2025-10-27 13:09:44.684 ServerApp] Saving file at /src/index_dataset.py
+[I 2025-10-27 13:10:08.848 ServerApp] Saving file at /src/config.py
+[I 2025-10-27 13:10:12.614 ServerApp] Saving file at /scripts/run_extract.py
+[I 2025-10-27 13:10:24.815 ServerApp] Saving file at /src/index_dataset.py
+[I 2025-10-27 13:10:58.675 ServerApp] Saving file at /src/config.py
+[W 2025-10-27 13:13:17.035 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.07ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:16:04.770 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.16ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:20:14.739 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:21:10.737 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.77ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:24:14.729 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.22ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:25:22.734 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.09ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:26:19.819 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.95ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:33:29.737 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.09ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:38:12.722 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.83ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:40:54.729 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.83ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:45:56.774 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.92ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:51:26.894 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.16ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 13:54:05.556 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.86ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 14:00:27.429 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.07ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 14:01:28.723 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 14:36:07.725 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.09ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 14:36:51.724 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.04ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 17:02:22.732 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.79ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 17:28:55.730 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.78ms referer=http://localhost:8080/sw.js
+[W 2025-10-27 17:29:46.724 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.21ms referer=http://localhost:8080/sw.js
+[W 2025-10-28 11:50:49.994 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[I 2025-10-28 13:58:33.986 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-28 13:58:34.263 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:73ad0f95-14e3-44d5-81c5-2996af3a32b9
+[W 2025-10-28 13:58:36.210 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[W 2025-10-28 13:59:26.545 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.11ms referer=http://localhost:8080/sw.js
+[W 2025-10-28 14:00:06.573 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 11:48:41.362 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.24ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 14:24:51.341 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.19ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 14:32:29.322 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.79ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 14:33:20.336 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 14:45:59.321 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.93ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 15:30:57.347 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 16:28:16.337 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 16:29:07.348 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 16:38:20.495 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.16ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 16:43:50.584 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.25ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 16:49:20.697 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 16:54:50.814 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.15ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 17:00:20.892 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 17:02:48.390 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.05ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 17:15:50.300 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.24ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 17:16:21.360 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.18ms referer=http://localhost:8080/sw.js
+[W 2025-10-29 17:17:02.388 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:18:27.595 ServerApp] 302 GET /?token=[secret] (@127.0.0.1) 0.39ms
+[I 2025-10-31 12:18:29.056 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 12:18:29.267 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:f08b7a14-474d-4d2c-906f-142fea260f7d
+[W 2025-10-31 12:18:31.231 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:18:40.485 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 12:18:40.751 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:0e38b6de-a2d7-4540-a97b-eb0b9d859992
+[W 2025-10-31 12:18:42.385 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:19:06.626 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 12:19:06.918 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:34e67d81-fc79-45a2-bcd0-f773453d6bf1
+[W 2025-10-31 12:19:08.486 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:21:03.668 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 12:21:03.922 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:5620f6e7-457c-40cb-b1bd-d3a8483f113b
+[W 2025-10-31 12:21:05.511 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:23:01.817 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.11ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:23:36.757 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.09ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:24:05.372 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 12:24:05.627 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:ff6512b4-f8c9-4a9b-8ac6-2a3548f53433
+[W 2025-10-31 12:24:07.221 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.12ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:24:15.887 ServerApp] Saving file at /src/config.py
+[I 2025-10-31 12:24:25.307 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 12:24:25.515 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:c544ca12-aa8e-4bad-bb6f-c961c5403726
+[W 2025-10-31 12:24:27.157 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:25:06.754 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.86ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:25:57.756 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.07ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:34:22.756 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.09ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 12:41:40.610 ServerApp] Saving file at /src/config.py
+[W 2025-10-31 12:42:44.756 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:44:41.753 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:45:36.759 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:52:41.666 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.05ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 12:58:11.761 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:03:41.849 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:09:11.959 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.03ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:14:42.035 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.06ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:19:57.749 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.08ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:25:15.834 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.90ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 13:27:20.072 ServerApp] Saving file at /src/train_eval.py
+[I 2025-10-31 13:29:20.125 ServerApp] Saving file at /src/train_eval.py
+[W 2025-10-31 13:30:45.898 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.24ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 13:31:20.177 ServerApp] Saving file at /src/train_eval.py
+[W 2025-10-31 13:36:16.007 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.15ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:37:03.760 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.15ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:37:53.745 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.12ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:42:44.749 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.12ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 13:43:20.764 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 13:46:09.754 ServerApp] Saving file at /scripts/run_train_eval.py
+[I 2025-10-31 13:48:09.805 ServerApp] Saving file at /scripts/run_train_eval.py
+[W 2025-10-31 13:49:41.794 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.41ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 13:50:18.858 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 13:51:34.413 ServerApp] Saving file at /src/binning.py
+[W 2025-10-31 13:55:11.898 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.26ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 14:00:41.994 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.13ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:05:34.791 ServerApp] Saving file at /src/binning.py
+[W 2025-10-31 14:06:12.070 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.80ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:07:34.849 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:09:34.907 ServerApp] Saving file at /src/binning.py
+[W 2025-10-31 14:11:42.163 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.23ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 14:17:12.236 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.18ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:17:34.959 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:19:35.010 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:21:10.733 ServerApp] Saving file at /scripts/run_train_eval.py
+[I 2025-10-31 14:21:35.746 ServerApp] Saving file at /src/binning.py
+[W 2025-10-31 14:22:42.291 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.12ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:23:11.750 ServerApp] Saving file at /scripts/run_train_eval.py
+[I 2025-10-31 14:23:35.801 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:24:55.977 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:25:06.246 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:25:26.054 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 14:25:26.350 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:d8afc978-a684-4970-b211-af27708ca1cb
+[W 2025-10-31 14:25:27.927 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.11ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:25:39.146 ServerApp] Saving file at /src/config.py
+[I 2025-10-31 14:26:47.234 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 14:26:47.411 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:e956a5a4-ba49-4127-a918-01a999a02621
+[W 2025-10-31 14:26:49.030 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.14ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:27:05.926 ServerApp] Saving file at /scripts/run_train_eval.py
+[I 2025-10-31 14:27:24.015 ServerApp] Saving file at /scripts/run_train_eval.py
+[I 2025-10-31 14:27:46.735 ServerApp] Saving file at /src/binning.py
+[W 2025-10-31 14:28:12.421 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.21ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:29:37.405 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:30:42.323 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:32:43.611 ServerApp] Saving file at /src/config.py
+[I 2025-10-31 14:32:59.087 ServerApp] Saving file at /src/config.py
+[I 2025-10-31 14:33:02.117 ServerApp] Saving file at /src/binning.py
+[I 2025-10-31 14:33:04.570 ServerApp] Saving file at /src/train_eval.py
+[I 2025-10-31 14:33:08.145 ServerApp] Saving file at /scripts/run_train_eval.py
+[I 2025-10-31 14:33:32.786 ServerApp] Saving file at /scripts/run_train_eval.py
+[W 2025-10-31 14:33:42.534 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 0.70ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:36:24.059 ServerApp] Saving file at /src/config.py
+[I 2025-10-31 14:37:28.562 ServerApp] Saving file at /src/config.py
+[W 2025-10-31 14:39:12.612 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.07ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:42:47.503 ServerApp] Saving file at /src/config.py
+[W 2025-10-31 14:44:27.785 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.11ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 14:47:19.424 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 14:47:19.718 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:626f8a6a-9113-4d24-8e1f-6b91cf76de1a
+[W 2025-10-31 14:47:21.301 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.17ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 14:50:28.270 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.08ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 14:55:57.755 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.10ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 14:57:22.751 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.08ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 15:01:05.077 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 15:01:05.321 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:3004f38d-303e-465e-9f12-284de7f37bbf
+[W 2025-10-31 15:01:06.958 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.03ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 15:02:37.744 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.08ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 15:04:35.764 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.11ms referer=http://localhost:8080/sw.js
+[I 2025-10-31 15:07:15.199 ServerApp] Saving file at /src/config.py
+[I 2025-10-31 15:10:03.108 ServerApp] Connecting to kernel 97a266f3-4a13-4efe-8141-ade655025874.
+[I 2025-10-31 15:10:03.326 ServerApp] Starting buffering for 97a266f3-4a13-4efe-8141-ade655025874:3bb50812-55f9-479e-a9c3-cf4cd1b9517b
+[W 2025-10-31 15:10:04.935 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.20ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 15:10:32.379 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.12ms referer=http://localhost:8080/sw.js
+[W 2025-10-31 15:16:02.461 ServerApp] 404 GET /sw.js (213bf69fec314a28b442be0c1bbcfcc5@127.0.0.1) 1.15ms referer=http://localhost:8080/sw.js

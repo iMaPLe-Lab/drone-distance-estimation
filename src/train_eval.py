@@ -6,12 +6,16 @@ from torch.utils.data import TensorDataset, DataLoader
 
 def make_loaders(
     X_train_all, y_train_cls_all,
+    X_val_all, y_val_cls_all,
     X_test_all,  y_test_cls_all,
-    batch_train, batch_test,
+    batch_train, batch_val, batch_test,
     device
 ):
     X_train_t = torch.from_numpy(X_train_all).float()
     y_train_t = torch.from_numpy(y_train_cls_all).long()
+
+    X_val_t = torch.from_numpy(X_val_all).float()
+    y_val_t = torch.from_numpy(y_val_cls_all).long()
 
     X_test_t  = torch.from_numpy(X_test_all).float()
     y_test_t  = torch.from_numpy(y_test_cls_all).long()
@@ -21,13 +25,18 @@ def make_loaders(
         batch_size=batch_train,
         shuffle=True
     )
+    val_loader = DataLoader(
+        TensorDataset(X_val_t, y_val_t),
+        batch_size=batch_val,
+        shuffle=True
+    )
     test_loader = DataLoader(
         TensorDataset(X_test_t, y_test_t),
         batch_size=batch_test,
         shuffle=False
     )
 
-    return train_loader, test_loader
+    return train_loader, val_loader, test_loader
 
 
 def evaluate_classification(model, loader, device):
@@ -47,6 +56,7 @@ def evaluate_classification(model, loader, device):
 def train_classifier(
     model,
     train_loader,
+    val_loader,
     test_loader,
     device,
     lr,
@@ -79,7 +89,7 @@ def train_classifier(
             total_loss += loss.item()
 
         avg_loss = total_loss / len(train_loader)
-        val_acc = evaluate_classification(model, test_loader, device)
+        val_acc = evaluate_classification(model, val_loader, device)
 
         print(f"Epoch {epoch:02d} | "
               f"Train Loss: {avg_loss:.4f} | "
@@ -98,7 +108,13 @@ def train_classifier(
                 break
 
     print(f"Best Validation Accuracy: {best_acc*100:.2f}%")
-    return best_acc
+
+    # return best_acc
+    test_acc = evaluate_classification(model, test_loader, device)
+
+    return test_acc
+    
+
 
 
 def class_to_midpoint(bin_idx_array, bin_edges):
