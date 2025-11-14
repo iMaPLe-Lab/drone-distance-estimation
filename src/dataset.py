@@ -3,10 +3,33 @@ import pandas as pd
 from PIL import Image
 import torch
 import numpy as np
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
+import torch.utils.data as data
 from torchvision.transforms import v2
+import pandas as pd
 
-class LRDDDataset(Dataset):
+from src.index_dataset import scan_dataset
+
+
+def getLRDDDataLoader(data_root, metadata_dir, batch_size, shuffle=True):
+
+    manifest = scan_dataset(data_root, metadata_dir)
+    manifest_df = pd.DataFrame(manifest)
+    
+    list_of_datasets = []
+    for _, row in manifest_df.iterrows():
+        try:
+            list_of_datasets.append(LRDDDatasetChunk(row["csv_path"], row["img_dir"], row["label_dir"], transform=None))       
+        except Exception as e:
+            print(f"[extract:ERROR] {row['date']}/{row['flight_id']} failed: {e}")
+
+    full_dataset = data.ConcatDataset(list_of_datasets)
+    loader = DataLoader(dataset=full_dataset, batch_size=batch_size, shuffle=shuffle)
+
+    return loader
+
+
+class LRDDDatasetChunk(Dataset):
     """
     Dataset for a single flight.
 
