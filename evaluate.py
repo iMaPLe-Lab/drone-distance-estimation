@@ -16,16 +16,18 @@ def evaluate_model(
     backbone="resnet50",
     batch_size=16,
     device="cuda",
-    save_predictions=False
+    save_predictions=False,
+    bbox_feature_dim=4,
+    num_workers=4
 ):
 
     test_data_root = data_root + "/test"
     test_metadata_dir = metadata_dir + "/test"
-    test_loader = getLRDDDataLoader(test_data_root, test_metadata_dir, batch_size)
+    test_loader = getLRDDDataLoader(test_data_root, test_metadata_dir, batch_size, num_workers=num_workers)
 
     model = DistancePredictor(
         backbone_name=backbone,
-        bbox_feat_dim=test_ds.bbox_feature_dim
+        bbox_feat_dim=bbox_feature_dim
     ).to(device)
 
     model.load_state_dict(torch.load(checkpoint_path, map_location=device))

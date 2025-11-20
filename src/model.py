@@ -31,9 +31,13 @@ class DistancePredictor(nn.Module):
         # Combined features: full_image + crop + bbox
         combined_dim = backbone_out_dim * 2 + bbox_feat_dim
 
+
+        # nn.Dropout(0.2),
+
         self.head = nn.Sequential(
-            nn.Dropout(0.2),
-            nn.Linear(combined_dim, 256),
+            nn.Linear(combined_dim, 512),
+            nn.ReLU(),
+            nn.Linear(512, 256),
             nn.ReLU(),
             nn.Linear(256, 1)  # regression output
         )

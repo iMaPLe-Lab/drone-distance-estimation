@@ -11,7 +11,7 @@ import pandas as pd
 from src.index_dataset import scan_dataset
 
 
-def getLRDDDataLoader(data_root, metadata_dir, batch_size, shuffle=True):
+def getLRDDDataLoader(data_root, metadata_dir, batch_size, num_workers, shuffle=True):
 
     manifest = scan_dataset(data_root, metadata_dir)
     manifest_df = pd.DataFrame(manifest)
@@ -24,7 +24,7 @@ def getLRDDDataLoader(data_root, metadata_dir, batch_size, shuffle=True):
             print(f"[extract:ERROR] {row['date']}/{row['flight_id']} failed: {e}")
 
     full_dataset = data.ConcatDataset(list_of_datasets)
-    loader = DataLoader(dataset=full_dataset, batch_size=batch_size, shuffle=shuffle)
+    loader = DataLoader(dataset=full_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
 
     return loader
 
@@ -120,13 +120,13 @@ class LRDDDatasetChunk(Dataset):
 
         if transform is None:
             transform = v2.Compose([
-                v2.Resize((224,224)),
+                v2.Resize((720,720)),
                 v2.ToImage(),
                 v2.ToDtype(torch.float32, scale=True),
                 v2.Normalize(
                     mean=[0.485, 0.456, 0.406],
                     std=[0.229, 0.224, 0.225]
-                )
+                ) # imagenet mean and std
             ])
         self.transform = transform
 
