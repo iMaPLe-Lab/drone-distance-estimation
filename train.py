@@ -6,13 +6,17 @@ import numpy as np
 from tqdm import tqdm
 import json
 
-from src.model import DistancePredictor
+from src.model import DistancePredictor, DroneRanger 
 from src.dataset import getLRDDDataLoader
 
 def train(
     data_root="/mnt/active_storage/Knut/LRDD_v3",
     metadata_dir="/mnt/active_storage/Knut/LRDD_v3/metadata",
     backbone="resnet50",
+    crop_only=True,
+    use_huber=False,
+    use_droneranger=False,
+    use_alt_head=False,
     epochs=20,
     batch_size=16,
     lr=1e-4,
@@ -23,24 +27,39 @@ def train(
     metrics_path="training_metrics.json",
     bbox_feature_dim=4,
     num_workers=4,
+    checkpoint_weights=None
 ):
+
 
     train_data_root = data_root + "/train"
     train_metadata_dir = metadata_dir + "/train"
     val_data_root = data_root + "/val"
     val_metadata_dir = metadata_dir + "/val"
 
-    train_loader = getLRDDDataLoader(train_data_root, train_metadata_dir, batch_size, num_workers=num_workers)
-    val_loader = getLRDDDataLoader(val_data_root, val_metadata_dir, batch_size, num_workers=num_workers)
+    train_loader = getLRDDDataLoader(train_data_root, train_metadata_dir, crop_only, batch_size, num_workers=num_workers)
+    val_loader = getLRDDDataLoader(val_data_root, val_metadata_dir, crop_only, batch_size, num_workers=num_workers)
 
-    # Model
-    model = DistancePredictor(
-        backbone_name=backbone,
-        bbox_feat_dim=bbox_feature_dim
-    ).to(device)
+    if use_droneranger:
+        model = DroneRanger(
+            bbox_feat_dim=bbox_feature_dim
+        ).to(device)
+    else:
+        model = DistancePredictor(
+            backbone_name=backbone,
+            alt_head=use_alt_head,
+            crop_only=crop_only,
+            bbox_feat_dim=bbox_feature_dim,
+        ).to(device)
 
-    criterion = nn.MSELoss()
+    if checkpoint_weights is not None:
+        model.load_state_dict(torch.load(checkpoint_weights, map_location=device))
+
     optimizer = Adam(model.parameters(), lr=lr)
+
+    if use_huber:
+        criterion = nn.HuberLoss()
+    else:
+        criterion = nn.MSELoss()
 
     best_val_loss = np.inf
     patience_counter = 0
@@ -64,23 +83,41 @@ def train(
         train_loss = 0
         pbar = tqdm(train_loader, desc="Training", leave=False)
 
-        for full_img, crop_img, bbox_feat, distance in pbar:
-            full_img = full_img.to(device)
-            crop_img = crop_img.to(device)
-            bbox_feat = bbox_feat.to(device)
-            distance = distance.to(device).float()
-
-            optimizer.zero_grad()
-            pred = model(full_img, crop_img, bbox_feat)
-            loss = criterion(pred, distance)
-            loss.backward()
-            optimizer.step()
-
-            batch_loss = loss.item()
-            train_loss += batch_loss # * full_img.size(0)
-
-            # Update tqdm info
-            pbar.set_postfix({"batch_loss": batch_loss})
+        if crop_only:
+            for crop_img, bbox_feat, distance in pbar:
+                crop_img = crop_img.to(device)
+                bbox_feat = bbox_feat.to(device)
+                distance = distance.to(device).float()
+    
+                optimizer.zero_grad()
+                pred = model(crop_img, bbox_feat)
+                loss = criterion(pred, distance)
+                loss.backward()
+                optimizer.step()
+    
+                batch_loss = loss.item()
+                train_loss += batch_loss
+    
+                # Update tqdm info
+                pbar.set_postfix({"batch_loss": batch_loss})
+        else:
+            for full_img, crop_img, bbox_feat, distance in pbar:
+                full_img = full_img.to(device)
+                crop_img = crop_img.to(device)
+                bbox_feat = bbox_feat.to(device)
+                distance = distance.to(device).float()
+    
+                optimizer.zero_grad()
+                pred = model(crop_img, bbox_feat, full_img)
+                loss = criterion(pred, distance)
+                loss.backward()
+                optimizer.step()
+    
+                batch_loss = loss.item()
+                train_loss += batch_loss
+    
+                # Update tqdm info
+                pbar.set_postfix({"batch_loss": batch_loss})
 
         train_loss /= len(train_loader.dataset)
 
@@ -95,20 +132,35 @@ def train(
         targets = []
 
         with torch.no_grad():
-            for full_img, crop_img, bbox_feat, distance in pbar_val:
-                full_img = full_img.to(device)
-                crop_img = crop_img.to(device)
-                bbox_feat = bbox_feat.to(device)
-                distance = distance.to(device).float()
-
-                pred = model(full_img, crop_img, bbox_feat)
-                loss = criterion(pred, distance)
-
-                val_loss += loss.item() # * full_img.size(0)
-                pbar_val.set_postfix({"batch_loss": loss.item()})
-
-                preds.append(pred.cpu().numpy())
-                targets.append(distance.cpu().numpy())
+            if crop_only:
+                for crop_img, bbox_feat, distance in pbar_val:
+                    crop_img = crop_img.to(device)
+                    bbox_feat = bbox_feat.to(device)
+                    distance = distance.to(device).float()
+    
+                    pred = model(crop_img, bbox_feat)
+                    loss = criterion(pred, distance)
+    
+                    val_loss += loss.item() # * full_img.size(0)
+                    pbar_val.set_postfix({"batch_loss": loss.item()})
+    
+                    preds.append(pred.cpu().numpy())
+                    targets.append(distance.cpu().numpy())
+            else:
+                for full_img, crop_img, bbox_feat, distance in pbar_val:
+                    full_img = full_img.to(device)
+                    crop_img = crop_img.to(device)
+                    bbox_feat = bbox_feat.to(device)
+                    distance = distance.to(device).float()
+    
+                    pred = model(crop_img, bbox_feat, full_img)
+                    loss = criterion(pred, distance)
+    
+                    val_loss += loss.item() # * full_img.size(0)
+                    pbar_val.set_postfix({"batch_loss": loss.item()})
+    
+                    preds.append(pred.cpu().numpy())
+                    targets.append(distance.cpu().numpy())
 
         preds = np.concatenate(preds)
         targets = np.concatenate(targets)
@@ -151,5 +203,4 @@ def train(
         print(f"\nMetrics saved to {metrics_path}")
 
     return model, metrics
-
 

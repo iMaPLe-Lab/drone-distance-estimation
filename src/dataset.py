@@ -11,7 +11,7 @@ import pandas as pd
 from src.index_dataset import scan_dataset
 
 
-def getLRDDDataLoader(data_root, metadata_dir, batch_size, num_workers, shuffle=True):
+def getLRDDDataLoader(data_root, metadata_dir, crop_only, batch_size, num_workers, shuffle=True):
 
     manifest = scan_dataset(data_root, metadata_dir)
     manifest_df = pd.DataFrame(manifest)
@@ -19,7 +19,7 @@ def getLRDDDataLoader(data_root, metadata_dir, batch_size, num_workers, shuffle=
     list_of_datasets = []
     for _, row in manifest_df.iterrows():
         try:
-            list_of_datasets.append(LRDDDatasetChunk(row["csv_path"], row["img_dir"], row["label_dir"], transform=None))       
+            list_of_datasets.append(LRDDDatasetChunk(row["csv_path"], row["img_dir"], row["label_dir"], crop_only, transform=None))       
         except Exception as e:
             print(f"[extract:ERROR] {row['date']}/{row['flight_id']} failed: {e}")
 
@@ -46,11 +46,12 @@ class LRDDDatasetChunk(Dataset):
         distance:        scalar tensor (float32), distance_3d_ft
     """
 
-    def __init__(self, csv_file, img_folder, labels_folder, transform=None):
+    def __init__(self, csv_file, img_folder, labels_folder, crop_only, transform=None):
         
         # assign first so they're available in checks
         self.imgs = img_folder
         self.yolo_labels = labels_folder
+        self.crop_only = crop_only
 
         df = pd.read_csv(csv_file)
 
@@ -118,17 +119,27 @@ class LRDDDatasetChunk(Dataset):
         self.metadata = df_clean
         self.yolo_labels = labels_folder
 
-        if transform is None:
-            transform = v2.Compose([
-                v2.Resize((720,720)),
-                v2.ToImage(),
-                v2.ToDtype(torch.float32, scale=True),
-                v2.Normalize(
-                    mean=[0.485, 0.456, 0.406],
-                    std=[0.229, 0.224, 0.225]
-                ) # imagenet mean and std
-            ])
-        self.transform = transform
+        transform = v2.Compose([
+            v2.Resize((2160,2160)),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            ) # imagenet mean and std
+        ])
+        self.full_transform = transform
+
+        transform = v2.Compose([
+            v2.Resize((512,512)),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            ) # imagenet mean and std
+        ])
+        self.crop_transform = transform
 
     def __len__(self):
         return len(self.metadata)
@@ -179,10 +190,16 @@ class LRDDDatasetChunk(Dataset):
             crop = img
             width = height = area = aspect = 0.0
 
-        full_img_tensor = self.transform(img)
-        crop_tensor     = self.transform(crop)
+        if not self.crop_only:
+            full_img_tensor = self.full_transform(img)
+        
+        crop_tensor     = self.crop_transform(crop)
 
         distance = torch.tensor(row['distance_3d_ft'], dtype=torch.float32)
         bbox_features = torch.tensor([width, height, area, aspect], dtype=torch.float32)
 
-        return full_img_tensor, crop_tensor, bbox_features, distance
+        if self.crop_only:
+            return crop_tensor, bbox_features, distance
+        else:
+            return full_img_tensor, crop_tensor, bbox_features, distance
+
