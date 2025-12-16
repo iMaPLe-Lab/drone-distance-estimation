@@ -21,12 +21,13 @@ def evaluate_model(
     device="cuda",
     save_predictions=False,
     bbox_feature_dim=4,
-    num_workers=4
+    num_workers=4,
+    max_dist=10000
 ):
 
     test_data_root = data_root + "/test"
     test_metadata_dir = metadata_dir + "/test"
-    test_loader = getLRDDDataLoader(test_data_root, test_metadata_dir, crop_only, batch_size, num_workers=num_workers)
+    test_loader = getLRDDDataLoader(test_data_root, test_metadata_dir, crop_only, batch_size, num_workers=num_workers, max_dist=max_dist)
 
     if use_droneranger:
         model = DroneRanger(

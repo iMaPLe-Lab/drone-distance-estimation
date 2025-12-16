@@ -37,11 +37,14 @@ class DistancePredictor(nn.Module):
         if alt_head:
             self.head = nn.Sequential(
                 nn.Dropout(0.2),
-                nn.Linear(combined_dim, 512),
+                nn.Linear(combined_dim, 128),
                 nn.ReLU(),
-                nn.Linear(512, 256),
+                nn.Dropout(0.2),
+                nn.Linear(128, 64),
                 nn.ReLU(),
-                nn.Linear(256, 1)  # regression output
+                nn.Linear(64, 32),
+                nn.ReLU(),
+                nn.Linear(32, 1)  # regression output
             )
         else:
             self.head = nn.Sequential(

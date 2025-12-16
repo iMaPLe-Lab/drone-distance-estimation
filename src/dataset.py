@@ -11,7 +11,7 @@ import pandas as pd
 from src.index_dataset import scan_dataset
 
 
-def getLRDDDataLoader(data_root, metadata_dir, crop_only, batch_size, num_workers, shuffle=True):
+def getLRDDDataLoader(data_root, metadata_dir, crop_only, batch_size, num_workers, max_dist=10000, shuffle=True):
 
     manifest = scan_dataset(data_root, metadata_dir)
     manifest_df = pd.DataFrame(manifest)
@@ -19,7 +19,7 @@ def getLRDDDataLoader(data_root, metadata_dir, crop_only, batch_size, num_worker
     list_of_datasets = []
     for _, row in manifest_df.iterrows():
         try:
-            list_of_datasets.append(LRDDDatasetChunk(row["csv_path"], row["img_dir"], row["label_dir"], crop_only, transform=None))       
+            list_of_datasets.append(LRDDDatasetChunk(row["csv_path"], row["img_dir"], row["label_dir"], crop_only, max_dist, transform=None))       
         except Exception as e:
             print(f"[extract:ERROR] {row['date']}/{row['flight_id']} failed: {e}")
 
@@ -46,7 +46,7 @@ class LRDDDatasetChunk(Dataset):
         distance:        scalar tensor (float32), distance_3d_ft
     """
 
-    def __init__(self, csv_file, img_folder, labels_folder, crop_only, transform=None):
+    def __init__(self, csv_file, img_folder, labels_folder, crop_only, max_dist, transform=None):
         
         # assign first so they're available in checks
         self.imgs = img_folder
@@ -90,6 +90,9 @@ class LRDDDatasetChunk(Dataset):
 
             if not valid_distance(raw_dist):
                 missing_distance_count += 1
+                keep_mask.append(False)
+                continue
+            elif raw_dist > max_dist:
                 keep_mask.append(False)
                 continue
 
