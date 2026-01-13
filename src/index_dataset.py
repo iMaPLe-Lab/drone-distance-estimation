@@ -40,7 +40,7 @@ def _find_csv_for_flight(
 
 def scan_dataset(
     root: str,
-    metadata_subdir: str = "metadata",
+    metadata_dir: str = "metadata",
     flight_patterns: List[str] = ("DJI_*", "IMG_*", "MAX_*", "PXL_*")
 ) -> List[Dict]:
     """
@@ -58,7 +58,8 @@ def scan_dataset(
 
     manifest: List[Dict] = []
 
-    metadata_root = os.path.join(root, metadata_subdir)
+    # metadata_root = os.path.join(root, metadata_subdir)
+    metadata_root = metadata_dir
     if not os.path.isdir(metadata_root):
         raise RuntimeError(f"metadata folder not found at {metadata_root}")
 

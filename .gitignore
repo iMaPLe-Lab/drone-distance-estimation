@@ -21,3 +21,5 @@ Thumbs.db
 **/checkpoints/
 notebook/*
 !notebook/notebook.ipynb
+nohup.out
+*.json

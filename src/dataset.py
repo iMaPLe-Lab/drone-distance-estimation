@@ -3,10 +3,33 @@ import pandas as pd
 from PIL import Image
 import torch
 import numpy as np
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
+import torch.utils.data as data
 from torchvision.transforms import v2
+import pandas as pd
 
-class LRDDDataset(Dataset):
+from src.index_dataset import scan_dataset
+
+
+def getLRDDDataLoader(data_root, metadata_dir, crop_only, batch_size, num_workers, max_dist=10000, shuffle=True):
+
+    manifest = scan_dataset(data_root, metadata_dir)
+    manifest_df = pd.DataFrame(manifest)
+    
+    list_of_datasets = []
+    for _, row in manifest_df.iterrows():
+        try:
+            list_of_datasets.append(LRDDDatasetChunk(row["csv_path"], row["img_dir"], row["label_dir"], crop_only, max_dist, transform=None))       
+        except Exception as e:
+            print(f"[extract:ERROR] {row['date']}/{row['flight_id']} failed: {e}")
+
+    full_dataset = data.ConcatDataset(list_of_datasets)
+    loader = DataLoader(dataset=full_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
+
+    return loader
+
+
+class LRDDDatasetChunk(Dataset):
     """
     Dataset for a single flight.
 
@@ -23,11 +46,12 @@ class LRDDDataset(Dataset):
         distance:        scalar tensor (float32), distance_3d_ft
     """
 
-    def __init__(self, csv_file, img_folder, labels_folder, transform=None):
+    def __init__(self, csv_file, img_folder, labels_folder, crop_only, max_dist, transform=None):
         
         # assign first so they're available in checks
         self.imgs = img_folder
         self.yolo_labels = labels_folder
+        self.crop_only = crop_only
 
         df = pd.read_csv(csv_file)
 
@@ -68,6 +92,9 @@ class LRDDDataset(Dataset):
                 missing_distance_count += 1
                 keep_mask.append(False)
                 continue
+            elif raw_dist > max_dist:
+                keep_mask.append(False)
+                continue
 
             # if we got here, keep the row
             keep_mask.append(True)
@@ -95,17 +122,27 @@ class LRDDDataset(Dataset):
         self.metadata = df_clean
         self.yolo_labels = labels_folder
 
-        if transform is None:
-            transform = v2.Compose([
-                v2.Resize((224,224)),
-                v2.ToImage(),
-                v2.ToDtype(torch.float32, scale=True),
-                v2.Normalize(
-                    mean=[0.485, 0.456, 0.406],
-                    std=[0.229, 0.224, 0.225]
-                )
-            ])
-        self.transform = transform
+        transform = v2.Compose([
+            v2.Resize((2160,2160)),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            ) # imagenet mean and std
+        ])
+        self.full_transform = transform
+
+        transform = v2.Compose([
+            v2.Resize((512,512)),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            ) # imagenet mean and std
+        ])
+        self.crop_transform = transform
 
     def __len__(self):
         return len(self.metadata)
@@ -156,10 +193,16 @@ class LRDDDataset(Dataset):
             crop = img
             width = height = area = aspect = 0.0
 
-        full_img_tensor = self.transform(img)
-        crop_tensor     = self.transform(crop)
+        if not self.crop_only:
+            full_img_tensor = self.full_transform(img)
+        
+        crop_tensor     = self.crop_transform(crop)
 
         distance = torch.tensor(row['distance_3d_ft'], dtype=torch.float32)
         bbox_features = torch.tensor([width, height, area, aspect], dtype=torch.float32)
 
-        return full_img_tensor, crop_tensor, bbox_features, distance
+        if self.crop_only:
+            return crop_tensor, bbox_features, distance
+        else:
+            return full_img_tensor, crop_tensor, bbox_features, distance
+
