@@ -4,9 +4,10 @@ import torchvision.models as models
 
 
 class DistancePredictor(nn.Module):
-    def __init__(self, backbone_name="resnet18", alt_head=False, crop_only=True, bbox_feat_dim=4):
+    def __init__(self, backbone_name="resnet18", alt_head=0, crop_only=True, bbox_feat_dim=4):
         super().__init__()
         self.crop_only = crop_only
+        self.alt_head = alt_head
 
         # ------- Select ResNet backbone -------
         if backbone_name == "resnet18":
@@ -34,7 +35,16 @@ class DistancePredictor(nn.Module):
         else:
             combined_dim = backbone_out_dim * 2 + bbox_feat_dim
 
-        if alt_head:
+        if self.alt_head==4 or self.alt_head==5 or self.alt_head==6:
+            self.norm = nn.LayerNorm(combined_dim)
+
+        if self.alt_head==5 or self.alt_head==6:
+            self.bbox_gate = nn.Sequential(
+                nn.Linear(bbox_feat_dim, backbone_out_dim),
+                nn.Sigmoid()
+            )
+
+        if alt_head == 1: # alternate 4-layer prediction head
             self.head = nn.Sequential(
                 nn.Dropout(0.2),
                 nn.Linear(combined_dim, 128),
@@ -45,6 +55,48 @@ class DistancePredictor(nn.Module):
                 nn.Linear(64, 32),
                 nn.ReLU(),
                 nn.Linear(32, 1)  # regression output
+            )
+        elif alt_head == 2: # 3-layer prediction head
+            self.head = nn.Sequential(
+                nn.Dropout(0.2),
+                nn.Linear(combined_dim, 128),
+                nn.ReLU(),
+                nn.Dropout(0.2),
+                nn.Linear(128, 32),
+                nn.ReLU(),
+                nn.Linear(32, 1)  # regression output
+            )
+        elif alt_head == 3: #4-layer prediction head
+            self.head = nn.Sequential(
+                nn.Dropout(0.2),
+                nn.Linear(combined_dim, 256),
+                nn.ReLU(),
+                nn.Linear(256, 128),
+                nn.ReLU(),
+                nn.Linear(128, 64),
+                nn.ReLU(),
+                nn.Linear(64, 1)  # regression output
+            )
+        elif alt_head == 4: # DR head + layer norm before head
+            self.head = nn.Sequential(
+                nn.Dropout(0.2),
+                nn.Linear(combined_dim, 256),
+                nn.ReLU(),
+                nn.Linear(256, 1)  # regression output
+            )
+        elif alt_head == 5: # DR head + layer norm + bbox gate
+            self.head = nn.Sequential(
+                nn.Dropout(0.2),
+                nn.Linear(combined_dim, 256),
+                nn.ReLU(),
+                nn.Linear(256, 1)  # regression output
+            )
+        elif alt_head == 6: # DR head + bbox gate
+            self.head = nn.Sequential(
+                nn.Dropout(0.2),
+                nn.Linear(combined_dim, 256),
+                nn.ReLU(),
+                nn.Linear(256, 1)  # regression output
             )
         else:
             self.head = nn.Sequential(
@@ -58,7 +110,16 @@ class DistancePredictor(nn.Module):
     def forward(self, crop_img, bbox_features, full_img=None):
         if self.crop_only:
             crop_feat = self.backbone_crop(crop_img)
+            
+            if self.alt_head==5 or self.alt_head==6:
+                gate = self.bbox_gate(bbox_features)
+                crop_feat = crop_feat * gate
+
             x = torch.cat([crop_feat, bbox_features], dim=1)
+            
+            if self.alt_head==4 or self.alt_head==5:
+                x = self.norm(x)
+            
             out = self.head(x)
             return out.squeeze(1)
         else:

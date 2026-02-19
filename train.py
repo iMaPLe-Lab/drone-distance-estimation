@@ -27,7 +27,10 @@ def train(
     metrics_path="training_metrics.json",
     bbox_feature_dim=4,
     num_workers=4,
-    checkpoint_weights=None
+    checkpoint_weights=None,
+    crop_size=512,
+    is_log = False,
+    xy_features = False
 ):
 
 
@@ -36,8 +39,8 @@ def train(
     val_data_root = data_root + "/val"
     val_metadata_dir = metadata_dir + "/val"
 
-    train_loader = getLRDDDataLoader(train_data_root, train_metadata_dir, crop_only, batch_size, num_workers=num_workers)
-    val_loader = getLRDDDataLoader(val_data_root, val_metadata_dir, crop_only, batch_size, num_workers=num_workers)
+    train_loader = getLRDDDataLoader(train_data_root, train_metadata_dir, crop_only, batch_size, num_workers=num_workers, crop_size=crop_size, is_log=is_log, xy_features=xy_features)
+    val_loader = getLRDDDataLoader(val_data_root, val_metadata_dir, crop_only, batch_size, num_workers=num_workers, crop_size=crop_size, is_log=is_log, xy_features=xy_features)
 
     if use_droneranger:
         model = DroneRanger(
