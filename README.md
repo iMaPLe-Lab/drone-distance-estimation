@@ -53,7 +53,7 @@ train.py              # code for training models
 
 ## Citation
 
-If you find our paper or dataset useful in your work, please consider citing our paper:
+If you find our paper useful in your work, please consider citing our paper:
 
 ```
 @inproceedings{peterson2026dronedar,
