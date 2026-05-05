@@ -1,33 +1,26 @@
-# Drone to Drone Distance Estimation
 
-## What is this?
+# DroneDAR: Long-Range Drone Distance Estimation Using Monocular Vision and Bounding-Box Features
 
-This repo helps train distance estimators for drones.
+This repository contains the code implementation of our 2026 paper, "DroneDAR: Long-Range Drone Distance Estimation Using Monocular Vision and Bounding-Box Features". Our work focuses on the problem of predicting the metric distance from a camera to a drone using only visual inputs. To solve this problem, we present DroneDAR (**Drone** **D**etection **A**nd **R**anging), a novel model for estimating the distance of drones that employs a custom bounding-box feature gate to improve robustness across distance regimes. We perform controlled experiments analyzing the impact of backbone capacity, loss function selection, and crop resolution on range estimation performance, and we report failure modes that arise at long distances.
 
-We are primarily training Resnet 18, 50 and 101 with LRDD V3 Dataset.
+<p align="center" width="100%">
+  <img src='https://github.com/iMaPLe-Lab/drone-distance-estimation/blob/main/assets/drone_range_model.png' width="90%">
+</p>
 
-The model uses:
-- the full RGB frame (optional, set by crop_only variable)
-- a cropped patch around the drone (from YOLO bbox)
-- simple bbox geometry features (width, height, area, aspect ratio)
+For more information, please check out our paper:
+<p align="left">
+<a href="TBD" alt="arXiv">
+    <img src="https://img.shields.io/badge/arXiv-TBD.TBD-b31b1b.svg?style=flat" /></a>
+</p>
 
-We run the crop and optionally the full image through a ResNet backbone to get:
-- `image_embedding`  (512 dim)
-- `crop_embedding`   (512 dim)
+## Dataset
 
-Which we then concatonate with the bbox geometry features:
-- `bbox_feats`       (4 dims)
+The LRDDv3 dataset used in this work is available on request through our lab website: [LRDDv3](https://research.coe.drexel.edu/ece/imaple/lrddv3/)
 
-We then regress distance from the features using a prediction head and report MAE / RMSE in feet.
-
----
-
-## Repo layout (important parts)
+## Repo layout
 ```text
 src/
   dataset.py          # dataset loading code
-  binning.py          # bin edges, splits, pooling (UNUSED - TO DELETE)
-  index_dataset.py    # (UNUSED - TO DELETE)
   model.py            # our model in DistancePredictor class, baseline model in DroneRanger class
 
 drone_range.ipynb     # train and evaluate models. Uses functions from evalute.py and train.py
@@ -35,21 +28,46 @@ evaluate.py           # code for running batch inference on test data
 train.py              # code for training models
 ```
 
-## How to run
+## Installation
 
-1. Set the paths and hyperparameters in:
+1. Clone this repo and install requirements:
+  
+   ```
+    git clone https://github.com/iMaPLe-Lab/drone-distance-estimation.git
+    cd drone-distance-estimation
+    conda env create -f environment.yml
+    conda activate DroneRange
+   ```
+  
+2. Set the paths and hyperparameters in:
    `drone_range.ipynb`
 
    Make sure these are correct for your machine:
    - `data_root`
    - `metadata_dir`
 
-2. Install requirements:
-   ```bash
-   pip install -r requirements.txt
-   ```
-   
 3. Train and evaluate models by selecting parameters in
-   ```bash
+   ```
    drone_range.ipynb
    ```
+
+## Citation
+
+If you find our paper or dataset useful in your work, please consider citing our paper:
+
+```
+@inproceedings{peterson2026dronedar,
+  title={DroneDAR: Long-Range Drone Distance Estimation Using Monocular Vision and Bounding-Box Features},
+  author={Peterson, Knut and Mayers, Zaid and Han, David},
+  booktitle={???},
+  year={2026}
+}
+```
+
+## Contact
+
+Feel free to contact us through email if you have any questions.
+
+- Knut Peterson (kp3275@drexel.edu), Drexel University
+
+<p align="right">(<a href="#top">back to top</a>)</p>
