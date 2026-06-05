@@ -59,7 +59,7 @@ If you find our paper useful in your work, please consider citing our paper:
 @inproceedings{peterson2026dronedar,
   title={DroneDAR: Long-Range Drone Distance Estimation Using Monocular Vision and Bounding-Box Features},
   author={Peterson, Knut and Mayers, Zaid and Han, David},
-  booktitle={???},
+  booktitle={2026 International Conference on Advanced Visual and Signal-Based Systems (AVSS)},
   year={2026}
 }
 ```
