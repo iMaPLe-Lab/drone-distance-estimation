@@ -7,11 +7,11 @@
 
 This repository contains the code implementation of our 2026 paper, "DroneDAR: Long-Range Drone Distance Estimation Using Monocular Vision and Bounding-Box Features". Our work focuses on the problem of predicting the metric distance from a camera to a drone using only visual inputs. To solve this problem, we present DroneDAR (**Drone** **D**etection **A**nd **R**anging), a novel model for estimating the distance of drones that employs a custom bounding-box feature gate to improve robustness across distance regimes. We perform controlled experiments analyzing the impact of backbone capacity, loss function selection, and crop resolution on range estimation performance, and we report failure modes that arise at long distances.
 
-For more information, please check out our paper: (coming soon)
-<!-- <p align="left">
-<a href="TBD" alt="arXiv">
-    <img src="https://img.shields.io/badge/arXiv-TBD.TBD-b31b1b.svg?style=flat" /></a>
-</p> -->
+For more information, please check out our paper:
+<p align="left">
+<a href="[TBD](https://arxiv.org/abs/2606.07756)" alt="arXiv">
+    <img src="https://img.shields.io/badge/arXiv-2606.07756-b31b1b.svg?style=flat" /></a>
+</p>
 
 ## Dataset
 
